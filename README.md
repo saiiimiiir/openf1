@@ -32,7 +32,12 @@ For more detailed examples and documentation, visit the [API Documentation](http
 
 2. Install pip>=23 and python>=3.10
 
-3. Install the OpenF1 python package
+3. Install the `mosquitto` MQTT broker
+
+```bash
+sudo apt-get install mosquitto
+```
+4. Install the OpenF1 python package
 
 ```bash
 git clone git@github.com:br-g/openf1.git
@@ -49,6 +54,7 @@ export MONGO_CONNECTION_STRING="mongodb://localhost:27017"
 
 5. Run the project
 
+- Start the MQTT broker: [services/broker/](src/openf1/services/broker/README.md)
 - Fetch and ingest data: [services/ingestor_livetiming/](src/openf1/services/ingestor_livetiming/README.md)
 - Start and query the API: [services/query_api/](src/openf1/services/query_api/README.md)
 

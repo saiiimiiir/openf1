@@ -5,16 +5,29 @@ from datetime import datetime, timedelta, timezone
 
 from loguru import logger
 
-from openf1.services.ingestor_livetiming.core.objects import get_topics
-from openf1.services.ingestor_livetiming.real_time.processing import ingest_file
-from openf1.services.ingestor_livetiming.real_time.recording import record_to_file
-from openf1.util.gcs import upload_to_gcs_periodically
+
+def _setup_env() -> None:
+    os.environ.setdefault("OPENF1_MQTT_URL", "localhost")
+    os.environ.setdefault("OPENF1_MQTT_PORT", os.getenv("OPENF1_BROKER_PORT", "1883"))
+    os.environ.setdefault("OPENF1_MQTT_TLS", "0")
+
 
 TIMEOUT = 10800  # Terminate job if no data received for 3 hours (in seconds)
 GCS_BUCKET = os.getenv("OPENF1_INGESTOR_LIVETIMING_GCS_BUCKET_RAW")
 
 
 async def main():
+    _setup_env()
+
+    from openf1.services.ingestor_livetiming.core.objects import get_topics
+    from openf1.services.ingestor_livetiming.real_time.processing import (
+        ingest_file,
+    )
+    from openf1.services.ingestor_livetiming.real_time.recording import (
+        record_to_file,
+    )
+    from openf1.util.gcs import upload_to_gcs_periodically
+
     with tempfile.NamedTemporaryFile(mode="w", delete=True) as temp:
         logger.info(f"Recording raw data to '{temp.name}'")
         tasks = []

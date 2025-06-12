@@ -1,6 +1,12 @@
 # Ingesting real-time data
 
-To start ingesting a session in progress:
+Start the broker in a separate terminal:
+
+```bash
+python -m openf1.services.broker.app
+```
+
+Then start ingesting a session in progress:
 
 ```bash
 python -m openf1.services.ingestor_livetiming.real_time.app
