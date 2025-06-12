@@ -2,7 +2,13 @@ import asyncio
 import json
 import os
 
+# ruff: noqa: E402
+
 from loguru import logger
+
+os.environ.setdefault("OPENF1_MQTT_URL", "localhost")
+os.environ.setdefault("OPENF1_MQTT_PORT", os.getenv("OPENF1_BROKER_PORT", "1883"))
+os.environ.setdefault("OPENF1_MQTT_TLS", "0")
 
 from openf1.services.ingestor_livetiming.core.decoding import decode
 from openf1.services.ingestor_livetiming.core.objects import Document, Message

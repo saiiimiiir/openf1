@@ -4,18 +4,21 @@ import ssl
 import paho.mqtt.client as mqtt
 from loguru import logger
 
-_url = os.getenv("OPENF1_MQTT_URL")
-_port = int(os.getenv("OPENF1_MQTT_PORT"))
+_url = os.getenv("OPENF1_MQTT_URL", "localhost")
+_port = int(os.getenv("OPENF1_MQTT_PORT", "1883"))
 _username = os.getenv("OPENF1_MQTT_USERNAME")
 _password = os.getenv("OPENF1_MQTT_PASSWORD")
+_use_tls = os.getenv("OPENF1_MQTT_TLS", "0") not in ["0", "false", "False"]
 
 _client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 _client.username_pw_set(_username, _password)
-_client.tls_set(
-    ca_certs=None,
-    cert_reqs=ssl.CERT_REQUIRED,
-    tls_version=ssl.PROTOCOL_TLS_CLIENT,
-)
+if _use_tls:
+    _client.tls_set(
+        ca_certs=None,
+        cert_reqs=ssl.CERT_NONE,
+        tls_version=ssl.PROTOCOL_TLS_CLIENT,
+    )
+    _client.tls_insecure_set(True)
 
 try:
     logger.info(f"Connecting to MQTT broker {_url}:{_port}...")
