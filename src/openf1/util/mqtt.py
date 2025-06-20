@@ -9,13 +9,18 @@ _port = int(os.getenv("OPENF1_MQTT_PORT"))
 _username = os.getenv("OPENF1_MQTT_USERNAME")
 _password = os.getenv("OPENF1_MQTT_PASSWORD")
 
+_use_tls_env = os.getenv("OPENF1_MQTT_USE_TLS", "1").strip().lower()
+_use_tls = _use_tls_env not in ("0", "false", "no")
+
 _client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 _client.username_pw_set(_username, _password)
-_client.tls_set(
-    ca_certs=None,
-    cert_reqs=ssl.CERT_REQUIRED,
-    tls_version=ssl.PROTOCOL_TLS_CLIENT,
-)
+if _use_tls:
+    _client.tls_set(
+        ca_certs=None,
+        cert_reqs=ssl.CERT_REQUIRED,
+        tls_version=ssl.PROTOCOL_TLS_CLIENT,
+    )
+logger.info(f"MQTT TLS {'enabled' if _use_tls else 'disabled'}")
 
 try:
     logger.info(f"Connecting to MQTT broker {_url}:{_port}...")
