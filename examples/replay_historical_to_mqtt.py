@@ -1,3 +1,8 @@
+"""Replay historical session data to an MQTT broker.
+
+Set ``OPENF1_MQTT_USE_TLS=0`` when connecting to a local broker without TLS.
+"""
+
 import asyncio
 import json
 

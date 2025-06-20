@@ -47,6 +47,9 @@ Set the **MONGO_CONNECTION_STRING** environment variable to connect to your loca
 export MONGO_CONNECTION_STRING="mongodb://localhost:27017"
 ```
 
+If you want to publish data to a local MQTT broker without TLS, set
+`OPENF1_MQTT_USE_TLS=0` (defaults to `1`).
+
 5. Run the project
 
 - Fetch and ingest data: [services/ingestor_livetiming/](src/openf1/services/ingestor_livetiming/README.md)
