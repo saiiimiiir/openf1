@@ -9,6 +9,14 @@ from pymongo.errors import BulkWriteError
 
 from openf1.util.misc import timed_cache
 
+from dotenv import load_dotenv
+
+load_dotenv()
+# MongoDB connection settings
+# The connection string and database name are loaded from environment variables
+# or default to 'openf1-livetiming' if not set.
+# Ensure you have the environment variables set in your .env file or system.
+_MONGO_CONNECTION_STRING = os.getenv("OPENF1_MONGO_CONNECTION_STRING")
 _MONGO_CONNECTION_STRING = os.getenv("MONGO_CONNECTION_STRING")
 _MONGO_DATABASE = os.getenv("OPENF1_DB_NAME", "openf1-livetiming")
 

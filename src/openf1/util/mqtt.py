@@ -3,7 +3,10 @@ import ssl
 
 import paho.mqtt.client as mqtt
 from loguru import logger
+from dotenv import load_dotenv
 
+load_dotenv()
+# MQTT client for OpenF1
 _url = os.getenv("OPENF1_MQTT_URL")
 _port = int(os.getenv("OPENF1_MQTT_PORT"))
 _username = os.getenv("OPENF1_MQTT_USERNAME")

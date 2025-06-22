@@ -1,6 +1,7 @@
 import asyncio
 import json
 
+
 from openf1.services.ingestor_livetiming.historical import main as historical
 from openf1.util.mqtt import publish_messages_to_mqtt
 from openf1.util.misc import json_serializer
