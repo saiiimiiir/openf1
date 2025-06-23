@@ -6,10 +6,10 @@ from openf1.services.ingestor_livetiming.historical import main as historical
 from openf1.util.mqtt import publish_messages_to_mqtt
 from openf1.util.misc import json_serializer
 
-YEAR = 2025
-MEETING_KEY = 1263
-SESSION_KEY = 9963
-
+YEAR = 2024
+MEETING_KEY = 1239
+SESSION_KEY = 9549
+#https://api.openf1.org/v1/sessions?country_name=Austria&session_name=Race&year=2024
 
 async def main() -> None:
     topics = historical.list_topics(
